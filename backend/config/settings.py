@@ -97,9 +97,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME", "eshop"),
-        "USER": os.getenv("DB_USER", "eshop_user"),
-        "PASSWORD": os.getenv("DB_PASS", "eshop_password"),
+        "NAME": os.getenv("DB_NAME", "eshopstore"),
+        "USER": os.getenv("DB_USER", "eshopuser"),
+        "PASSWORD": os.getenv("DB_PASS", "admin123."),
         "HOST": os.getenv("DB_HOST", "localhost"),
         "PORT": os.getenv("DB_PORT", "5432"),
     }
@@ -148,7 +148,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User Model
-# AUTH_USER_MODEL = 'users.User' # Uncomment when User model is ready
+AUTH_USER_MODEL = 'users.User'
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True # For development only

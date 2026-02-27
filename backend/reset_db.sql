@@ -1,0 +1,5 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
+GRANT ALL ON SCHEMA public TO eshopuser;
+ALTER SCHEMA public OWNER TO eshopuser;
