@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: eshop_db
+    environment:
+      POSTGRES_DB: eshop
+      POSTGRES_USER: eshop_user
+      POSTGRES_PASSWORD: eshop_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: eshop_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: eshop_backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DB_HOST=db
+      - DB_NAME=eshop
+      - DB_USER=eshop_user
+      - DB_PASS=eshop_password
+      - REDIS_HOST=redis
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
